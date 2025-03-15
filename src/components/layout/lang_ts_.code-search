@@ -1,0 +1,58 @@
+# Query: lang="ts"
+# Flags: WordMatch RegExp
+
+18 results - 18 files
+
+src/App.vue:
+  8: <script setup>
+
+src/components/HelloWorld.vue:
+  1: <script setup>
+
+src/components/common/LoadingSpinner.vue:
+  9:   <script setup>
+
+src/components/common/PrimaryButton.vue:
+  10:   <script setup>
+
+src/components/crud/AuthorCrud.vue:
+  33: <script setup>
+
+src/components/crud/AuthorDetails.vue:
+  17: <script setup>
+
+src/components/crud/CategoriaCrud.vue:
+  38: <script setup>
+
+src/components/crud/CategoriaDetails.vue:
+  18:   <script setup>
+
+src/components/crud/FotografiaCrud.vue:
+  41: <script setup>
+
+src/components/crud/FotografiaDetails.vue:
+  12:   <script setup>
+
+src/components/crud/GaleriaCrud.vue:
+  45: <script setup>
+
+src/components/crud/GaleriaDetails.vue:
+  14:   <script setup>
+
+src/components/layout/Footer.vue:
+  9:   <script setup>
+
+src/views/AuthorView.vue:
+  7:   <script setup>
+
+src/views/CategoriaView.vue:
+  7:   <script setup>
+
+src/views/FotografiaView.vue:
+  7:   <script setup>
+
+src/views/GaleriaView.vue:
+  7:   <script setup>
+
+src/views/Home.vue:
+  29:   <script setup>
