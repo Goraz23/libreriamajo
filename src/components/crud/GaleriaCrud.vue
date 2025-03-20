@@ -59,13 +59,15 @@ export default defineComponent({
     const currentGaleriaId = ref<number | null>(null)
     const selectedGaleriaId = ref<number | null>(null)
 
+    const galerias = ref([])
+
     // Obtener las galerías al montar el componente
     onMounted(async () => {
       await galeriasStore.fetchGalerias()
+      // Obtener las galerías desde el store
+      galerias.value = galeriasStore.galerias
     })
 
-    // Obtener las galerías desde el store
-    const galerias = galeriasStore.galerias
 
     // Función para manejar el formulario
     const handleSubmit = async () => {
@@ -78,6 +80,9 @@ export default defineComponent({
       } else {
         await galeriasStore.addGaleria(galeriaData.value)
       }
+      await galeriasStore.fetchGalerias()
+      // Obtener las galerías desde el store
+      galerias.value = galeriasStore.galerias
       galeriaData.value = { nombreGaleria: '', descripcion: '', fechaCreacion: '' }
     }
 
@@ -91,6 +96,9 @@ export default defineComponent({
     // Función para eliminar una galería
     const deleteGaleria = async (id: number) => {
       await galeriasStore.deleteGaleria(id)
+      await galeriasStore.fetchGalerias()
+      // Obtener las galerías desde el store
+      galerias.value = galeriasStore.galerias
     }
 
     // Función para ver los detalles de una galería

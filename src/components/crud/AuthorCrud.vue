@@ -45,13 +45,15 @@ export default defineComponent({
     const currentAuthorId = ref<number | null>(null);
     const selectedAuthorId = ref<number | null>(null);
 
+    const authors = ref([]);
+
     // Obtener autores al montar el componente
     onMounted(async () => {
       await authorsStore.fetchAuthors();
+      // Listado de autores de la tienda
+      authors.value = authorsStore.authors;
     });
 
-    // Listado de autores de la tienda
-    const authors = authorsStore.authors;
 
     const handleSubmit = async () => {
       if (isEdit.value) {
@@ -67,6 +69,9 @@ export default defineComponent({
         // Refrescar la lista después de agregar
         await authorsStore.fetchAuthors();
       }
+      await authorsStore.fetchAuthors();
+      // Listado de autores de la tienda
+      authors.value = authorsStore.authors;
       authorData.value = { nombre: '' };
     };
 
@@ -78,8 +83,9 @@ export default defineComponent({
 
     const deleteAuthor = async (id: number) => {
       await authorsStore.deleteAuthor(id);
-      // Refrescar la lista después de eliminar
       await authorsStore.fetchAuthors();
+      // Listado de autores de la tienda
+      authors.value = authorsStore.authors;
     };
 
     const viewAuthorDetails = (id: number) => {

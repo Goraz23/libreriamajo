@@ -55,13 +55,14 @@ export default defineComponent({
     const currentFotografiaId = ref<number | null>(null)
     const selectedFotografiaId = ref<number | null>(null)
 
+    const fotografias = ref([])
+
     onMounted(async () => {
       await fotografiasStore.fetchFotografias()
+      fotografias.value = fotografiasStore.fotografias
     })
 
-    const fotografias = fotografiasStore.fotografias
-    console.log(fotografias);
-    
+    console.log(fotografias);    
 
     const handleSubmit = async () => {
       if (isEdit.value) {
@@ -73,6 +74,8 @@ export default defineComponent({
       } else {
         await fotografiasStore.addFotografia(fotografiaData.value)
       }
+      await fotografiasStore.fetchFotografias()
+      fotografias.value = fotografiasStore.fotografias
       fotografiaData.value = { nombre: '', fechaPublicacion: '', fkAuthor: 0, fkCategoria: 0, fkGaleria: 0 }
     }
 
@@ -84,6 +87,8 @@ export default defineComponent({
 
     const deleteFotografia = async (id: number) => {
       await fotografiasStore.deleteFotografia(id)
+      await fotografiasStore.fetchFotografias()
+      fotografias.value = fotografiasStore.fotografias
     }
 
     const viewFotografiaDetails = (id: number) => {

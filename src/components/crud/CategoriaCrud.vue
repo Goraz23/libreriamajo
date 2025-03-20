@@ -51,11 +51,13 @@ export default defineComponent({
     const currentCategoriaId = ref<number | null>(null);
     const selectedCategoriaId = ref<number | null>(null);
 
+    const categorias = ref([]);
+
     onMounted(async () => {
       await categoriasStore.fetchCategorias();
+      categorias.value = categoriasStore.categorias;
     });
 
-    const categorias = categoriasStore.categorias;
 
     const handleSubmit = async () => {
       if (isEdit.value) {
@@ -67,6 +69,8 @@ export default defineComponent({
       } else {
         await categoriasStore.addCategoria(categoriaData.value);
       }
+      await categoriasStore.fetchCategorias();
+      categorias.value = categoriasStore.categorias;
       categoriaData.value = { nombreCategoria: '' };
     };
 
@@ -78,6 +82,8 @@ export default defineComponent({
 
     const deleteCategoria = async (id: number) => {
       await categoriasStore.deleteCategoria(id);
+      await categoriasStore.fetchCategorias();
+      categorias.value = categoriasStore.categorias;
     };
 
     const viewCategoriaDetails = (id: number) => {
