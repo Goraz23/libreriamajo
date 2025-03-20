@@ -16,9 +16,9 @@
         <li v-for="author in authors" :key="author.pkAuthor" class="list-item">
           <p>{{ author.nombre }}</p>
           <div class="button-group">
-            <button @click="editAuthor(author)" class="btn-secondary">Editar</button>
-            <button @click="deleteAuthor(author.pkAuthor)" class="btn-danger">Eliminar</button>
-            <button @click="viewAuthorDetails(author.pkAuthor)" class="btn-info">Ver Detalles</button>
+            <button @click="editAuthor(author)" class="btn-positive">Editar</button>
+            <button @click="deleteAuthor(author.pkAuthor)" class="btn-negative">Eliminar</button>
+            <button @click="viewAuthorDetails(author.pkAuthor)" class="btn-details">Ver Detalles</button>
           </div>
         </li>
       </ul>
@@ -45,21 +45,27 @@ export default defineComponent({
     const currentAuthorId = ref<number | null>(null);
     const selectedAuthorId = ref<number | null>(null);
 
+    // Obtener autores al montar el componente
     onMounted(async () => {
       await authorsStore.fetchAuthors();
     });
 
+    // Listado de autores de la tienda
     const authors = authorsStore.authors;
 
     const handleSubmit = async () => {
       if (isEdit.value) {
         if (currentAuthorId.value) {
           await authorsStore.updateAuthor(currentAuthorId.value, authorData.value);
+          // Refrescar la lista después de actualizar
+          await authorsStore.fetchAuthors();
           isEdit.value = false;
           currentAuthorId.value = null;
         }
       } else {
         await authorsStore.addAuthor(authorData.value);
+        // Refrescar la lista después de agregar
+        await authorsStore.fetchAuthors();
       }
       authorData.value = { nombre: '' };
     };
@@ -72,6 +78,8 @@ export default defineComponent({
 
     const deleteAuthor = async (id: number) => {
       await authorsStore.deleteAuthor(id);
+      // Refrescar la lista después de eliminar
+      await authorsStore.fetchAuthors();
     };
 
     const viewAuthorDetails = (id: number) => {
@@ -91,13 +99,15 @@ export default defineComponent({
   },
 });
 </script>
+
+
 <style scoped>
 /* Contenedor principal */
 .container {
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  background: #f8f9fa;
+  background: #edf2f4; /* Color principal */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -105,14 +115,14 @@ export default defineComponent({
 /* Títulos */
 .title {
   text-align: center;
-  color: #2c3e50;
+  color: #d90429; /* Color principal de texto para títulos */
   font-size: 24px;
   margin-bottom: 20px;
 }
 
 .subtitle {
   text-align: center;
-  color: #495057;
+  color: #2b2d42; /* Color de párrafo */
   font-size: 20px;
   margin-top: 20px;
 }
@@ -160,38 +170,38 @@ button:active {
 }
 
 .btn-primary {
-  background: #28a745;
-  color: white;
+  background: #8d99ae; /* Color afirmativo */
+  color: #000;
 }
 
 .btn-primary:hover {
-  background: #218838;
+  background: #607d8b;
 }
 
-.btn-secondary {
-  background: #ffc107;
-  color: black;
+.btn-positive {
+  background: #8d99ae; /* Botón afirmativo */
+  color: #000;
 }
 
-.btn-secondary:hover {
-  background: #e0a800;
+.btn-positive:hover {
+  background: #607d8b;
 }
 
-.btn-danger {
-  background: #dc3545;
-  color: white;
+.btn-negative {
+  background: #ef233c; /* Botón negativo */
+  color: #fff;
 }
 
-.btn-danger:hover {
-  background: #c82333;
+.btn-negative:hover {
+  background: #d81e1f;
 }
 
-.btn-info {
+.btn-details {
   background: #007bff;
   color: white;
 }
 
-.btn-info:hover {
+.btn-details:hover {
   background: #0056b3;
 }
 

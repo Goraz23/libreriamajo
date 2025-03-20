@@ -19,6 +19,7 @@ export const useAuthorsStore = defineStore('authors', {
     async addAuthor(author: { nombre: string; fotografias: Array<any> }) {
       try {
         const response = await axios.post('http://localhost:5072/api/Author', author)
+        // Actualiza la lista localmente sin necesidad de una nueva solicitud
         this.authors.push(response.data)
       } catch (error) {
         console.error('Error adding author:', error)
@@ -28,6 +29,7 @@ export const useAuthorsStore = defineStore('authors', {
     async updateAuthor(id: number, author: { nombre: string; fotografias: Array<any> }) {
       try {
         const response = await axios.put(`http://localhost:5072/api/Author/${id}`, author)
+        // Actualiza el autor correspondiente localmente
         const index = this.authors.findIndex(a => a.pkAuthor === id)
         if (index !== -1) {
           this.authors[index] = response.data
@@ -40,6 +42,7 @@ export const useAuthorsStore = defineStore('authors', {
     async deleteAuthor(id: number) {
       try {
         await axios.delete(`http://localhost:5072/api/Author/${id}`)
+        // Elimina el autor localmente
         this.authors = this.authors.filter(a => a.pkAuthor !== id)
       } catch (error) {
         console.error('Error deleting author:', error)

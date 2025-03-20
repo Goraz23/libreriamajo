@@ -34,7 +34,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
 import { useCategoriasStore } from '@/store/categorias/index.ts';
@@ -105,7 +104,7 @@ export default defineComponent({
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  background: #f8f9fa;
+  background: #edf2f4;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -113,7 +112,7 @@ export default defineComponent({
 /* Títulos */
 .title {
   text-align: center;
-  color: #2c3e50;
+  color: #d90429;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -168,12 +167,12 @@ button:active {
 }
 
 .btn-primary {
-  background: #28a745;
-  color: white;
+  background: #8d99ae;
+  color: #000;
 }
 
 .btn-primary:hover {
-  background: #218838;
+  background: #7b8998;
 }
 
 .btn-secondary {

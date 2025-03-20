@@ -118,7 +118,7 @@ export default defineComponent({
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  background: #f8f9fa;
+  background: #edf2f4; /* Fondo principal */
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -126,7 +126,7 @@ export default defineComponent({
 /* Título */
 .title {
   text-align: center;
-  color: #2c3e50;
+  color: #d90429; /* Color de los títulos */
   font-size: 24px;
   font-weight: bold;
 }
@@ -150,7 +150,7 @@ export default defineComponent({
 label {
   font-weight: 600;
   margin-bottom: 5px;
-  color: #495057;
+  color: #2b2d42; /* Color de texto para párrafos */
 }
 
 input, textarea {
@@ -181,25 +181,25 @@ button:hover {
 }
 
 .btn-primary {
-  background: #28a745;
-  color: white;
+  background: #8d99ae; /* Botones afirmativos */
+  color: #000;
 }
 
 .btn-primary:hover {
-  background: #218838;
+  background: #6c7a8a;
 }
 
 .btn-edit {
-  background: #ffc107;
-  color: black;
+  background: #8d99ae; /* Botones afirmativos */
+  color: #000;
 }
 
 .btn-edit:hover {
-  background: #e0a800;
+  background: #6c7a8a;
 }
 
 .btn-delete {
-  background: #dc3545;
+  background: #ef233c; /* Botones negativos */
   color: white;
 }
 
@@ -208,12 +208,12 @@ button:hover {
 }
 
 .btn-view {
-  background: #007bff;
-  color: white;
+  background: #8d99ae; /* Botones afirmativos */
+  color: #000;
 }
 
 .btn-view:hover {
-  background: #0056b3;
+  background: #6c7a8a;
 }
 
 /* Tarjeta de galerías */
@@ -240,7 +240,7 @@ button:hover {
 .list-item p {
   font-size: 16px;
   font-weight: 500;
-  color: #2c3e50;
+  color: #2b2d42; /* Color de texto para párrafos */
 }
 
 /* Grupo de botones */
@@ -256,4 +256,3 @@ button:hover {
   font-style: italic;
 }
 </style>
-

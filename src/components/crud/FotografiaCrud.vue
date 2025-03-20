@@ -60,6 +60,8 @@ export default defineComponent({
     })
 
     const fotografias = fotografiasStore.fotografias
+    console.log(fotografias);
+    
 
     const handleSubmit = async () => {
       if (isEdit.value) {
@@ -103,30 +105,37 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* Colores solicitados */
+:root {
+  --color-fondo: #edf2f4; /* Fondo principal */
+  --color-titulo: #d90429; /* Títulos */
+  --color-parrafo: #2b2d42; /* Párrafos */
+  --color-boton-positivo: #8d99ae; /* Botones afirmativos */
+  --color-boton-positivo-texto: #000; /* Texto botones afirmativos */
+  --color-boton-negativo: #ef233c; /* Botones negativos */
+  --color-boton-negativo-texto: #fff; /* Texto botones negativos */
+}
+
 .container {
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  background: #f8f9fa;
+  background: var(--color-fondo);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.title {
+h1 {
+  color: var(--color-titulo);
   text-align: center;
-  color: #2c3e50;
 }
 
-.form-card {
+.card {
   background: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 10px;
 }
 
 input, textarea {
@@ -144,37 +153,23 @@ button {
 }
 
 .btn-primary {
-  background: #28a745;
-  color: white;
+  background: var(--color-boton-positivo);
+  color: var(--color-boton-positivo-texto);
 }
 
 .btn-edit {
-  background: #ffc107;
-  color: black;
+  background: var(--color-boton-positivo);
+  color: var(--color-boton-positivo-texto);
 }
 
 .btn-delete {
-  background: #dc3545;
-  color: white;
+  background: var(--color-boton-negativo);
+  color: var(--color-boton-negativo-texto);
 }
 
 .btn-view {
   background: #007bff;
   color: white;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.list-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
 
 .no-data {

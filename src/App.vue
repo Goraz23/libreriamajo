@@ -1,151 +1,120 @@
 <template>
-  <div >
-    <Navbar />
-    <router-view />
-  </div>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <div>
+      <nav v-if="isAuthenticated" class="navbar">
+        <span>Bienvenido, {{ user?.name }}</span>
+        <router-link to="/">Inicio</router-link>
+        <router-link to="/autores">Autores</router-link>
+        <router-link to="/categorias">Categorías</router-link>
+        <router-link to="/fotografias">Fotografías</router-link>
+        <router-link to="/galerias">Galerías</router-link>
+        <button @click="logout" class="logout-btn">Cerrar Sesión</button>
+      </nav>
+
+      <router-view @auth-changed="checkAuth" />
+    </div>
+
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import Navbar from '@/components/layout/Navbar.vue'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    Navbar
-  }
-})
+const router = useRouter()
+const isAuthenticated = ref(false)
+const user = ref(null)
+
+// Función para verificar autenticación
+const checkAuth = () => {
+  isAuthenticated.value = localStorage.getItem('isAuthenticated') === 'true'
+  user.value = JSON.parse(localStorage.getItem('user')) || null
+}
+
+// Función para cerrar sesión
+const logout = () => {
+  localStorage.removeItem('isAuthenticated')
+  localStorage.removeItem('user')
+  isAuthenticated.value = false
+  user.value = null
+  router.push('/login')
+}
+
+onMounted(checkAuth)
 </script>
 
 <style scoped>
-/* Contenedor principal */
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Fuentes */
+body,
+* {
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Títulos */
-.title {
-  text-align: center;
-  color: #2c3e50;
-  font-size: 24px;
-  margin-bottom: 20px;
+/* Fondo principal */
+body {
+  background-color: #edf2f4;
+  color: #2b2d42;
 }
 
-.subtitle {
-  text-align: center;
-  color: #495057;
-  font-size: 20px;
-  margin-top: 20px;
-}
-
-/* Formulario */
-.form-card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-  color: #343a40;
-}
-
-input {
-  width: 100%;
+/* Navbar */
+.navbar {
+  display: flex;
+  gap: 10px;
+  background-color: #d90429;
+  /* Color de fondo de la barra de navegación */
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  color: white;
 }
 
-/* Botones */
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
 button {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
-  font-size: 16px;
-  font-weight: bold;
+  background-color: #8d99ae;
+  /* Botón afirmativo */
+  color: #000;
+  /* Texto del botón afirmativo */
 }
 
-button:active {
-  transform: scale(0.98);
+button:hover {
+  opacity: 0.8;
 }
 
-.btn-primary {
-  background: #28a745;
-  color: white;
+/* Botón de cerrar sesión (negativo) */
+.logout-btn {
+  background-color: #ef233c;
+  /* Botón negativo */
+  color: #fff;
 }
 
-.btn-primary:hover {
-  background: #218838;
+.logout-btn:hover {
+  opacity: 0.8;
 }
 
-.btn-secondary {
-  background: #ffc107;
-  color: black;
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #d90429;
+  /* Color de los títulos */
 }
 
-.btn-secondary:hover {
-  background: #e0a800;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #c82333;
-}
-
-.btn-info {
-  background: #007bff;
-  color: white;
-}
-
-.btn-info:hover {
-  background: #0056b3;
-}
-
-/* Lista de Categorías */
-.category-list {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.button-group {
-  display: flex;
-  gap: 8px;
-}
-
-/* Mensaje cuando no hay categorías */
+/* Párrafos */
 p {
-  text-align: center;
-  color: #6c757d;
-  font-size: 16px;
+  color: #2b2d42;
+  /* Color de los párrafos */
 }
 </style>

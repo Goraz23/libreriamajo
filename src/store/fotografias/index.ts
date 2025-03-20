@@ -32,6 +32,8 @@ export const useFotografiasStore = defineStore('fotografias', {
       fkGaleria: number;
     }) {
       try {
+        console.log(fotografia);
+        
         const response = await axios.post('http://localhost:5072/api/Fotografia', fotografia)
         this.fotografias.push(response.data)
       } catch (error) {
@@ -40,24 +42,28 @@ export const useFotografiasStore = defineStore('fotografias', {
     },
     // Actualizar una fotografía
     async updateFotografia(id: number, fotografia: {
+      nombre: string;
       fechaPublicacion: string;
       fkAuthor: number;
       fkCategoria: number;
       fkGaleria: number;
     }) {
-      try {
-        const response = await axios.put(`http://localhost:5072/api/Fotografia/${id}`, fotografia)
-        const index = this.fotografias.findIndex(f => f.pkFotografia === id)
+      try {    
+        console.log(fotografia);
+        const response = await axios.put(`http://localhost:5072/api/Fotografia/${id}`, fotografia);
+        const index = this.fotografias.findIndex(f => f.pkFotografia === id);
         if (index !== -1) {
-          this.fotografias[index] = response.data
+          this.fotografias[index] = response.data;
         }
       } catch (error) {
-        console.error('Error updating fotografia:', error)
+        console.error('Error updating fotografia:', error);
       }
-    },
+    },    
     // Eliminar una fotografía
     async deleteFotografia(id: number) {
       try {
+        console.log(id);
+        
         await axios.delete(`http://localhost:5072/api/Fotografia/${id}`)
         this.fotografias = this.fotografias.filter(f => f.pkFotografia !== id)
       } catch (error) {
